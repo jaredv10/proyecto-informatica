@@ -20,7 +20,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::showMenu()
 {
-    ui->stackedWidget->setCurrentIndex(0); // Asumiendo que la pantalla de menú principal es la primera en stackedWidget
+    ui->stackedWidget->setCurrentIndex(0);
 
     connect(ui->playButton, &QPushButton::clicked, this, &MainWindow::showGameSelection);
     connect(ui->aboutButton, &QPushButton::clicked, [this] {
@@ -45,7 +45,7 @@ void MainWindow::showMenu()
 
 void MainWindow::showGameSelection()
 {
-    ui->stackedWidget->setCurrentIndex(1); // Asumiendo que la pantalla de selección de modo de juego es la segunda en stackedWidget
+    ui->stackedWidget->setCurrentIndex(1);
 
     connect(ui->singlePlayerButton, &QPushButton::clicked, this, &MainWindow::startSinglePlayerGame);
     connect(ui->multiPlayerButton, &QPushButton::clicked, this, &MainWindow::startMultiPlayerGame);
@@ -58,10 +58,10 @@ void MainWindow::startSinglePlayerGame()
         delete game;
     }
 
-    game = new Game(1, this); // Asumiendo que 1 significa modo un jugador
+    game = new Game(1, this);
     setCentralWidget(game);
     game->startGame();
-    game->setFocus(); // Asegurar que el widget de juego recibe el foco del teclado
+    game->setFocus();
 }
 
 void MainWindow::startMultiPlayerGame()
@@ -70,7 +70,7 @@ void MainWindow::startMultiPlayerGame()
         delete game;
     }
 
-    game = new Game(2, this); // Asumiendo que 2 significa modo dos jugadores
+    game = new Game(2, this);
     setCentralWidget(game);
     game->startGame();
 

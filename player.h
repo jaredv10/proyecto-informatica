@@ -7,11 +7,11 @@
 class Player {
 public:
     enum Direction { None, Up, Down };
-    Player(int x, int y, bool isAI = false); // Agregar parámetro isAI para distinguir entre jugador y IA
+    Player(int x, int y, bool isAI = false);
 
     void draw(QPainter *painter);
     void move();
-    void moveAI(const QRect &ballRect); // Agregar función para mover la IA
+    void moveAI(const QRect &ballRect);
     QRect getRect() const;
     void setDirection(Direction dir);
     void stop();

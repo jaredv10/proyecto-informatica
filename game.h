@@ -18,8 +18,7 @@ public:
 
 
 signals:
-    void gameEnded(QString winner); // Señal para notificar el fin del juego
-
+    void gameEnded(QString winner);
 protected:
     void paintEvent(QPaintEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
@@ -36,13 +35,13 @@ private:
     void applyPowerUp(PowerUp::PowerUpType type, Player* player);
     void moveObstacles();
     void generatePowerUp();
-    void stopObstacles(); // Nueva función para detener obstáculos
+    void stopObstacles();
     QTimer *obstacleTimer;
 
 
-    static constexpr int MAX_SCORE = 5; // Puntaje máximo para ganar
+    static constexpr int MAX_SCORE = 5;
 
-    int mode; // 1 for single player, 2 for two players
+    int mode;
     bool gameRunning;
     int score1;
     int score2;

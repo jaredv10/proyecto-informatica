@@ -1,17 +1,17 @@
 #include "ball.h"
 
 Ball::Ball(int x, int y, int speed)
-    : rect(x, y, 15, 15) // Ajustar el tamaño según sea necesario
+    : rect(x, y, 15, 15)
     , speedX(speed)
     , speedY(speed)
-    , speedIncrement(1) // Ajustar la cantidad de incremento de velocidad si es necesario
+    , speedIncrement(1)
     , moveCounter(0)
 {
 }
 
 void Ball::draw(QPainter *painter)
 {
-    painter->setBrush(Qt::red); // Cambiar color si es necesario
+    painter->setBrush(Qt::red);
     painter->drawEllipse(rect);
 }
 
@@ -26,10 +26,10 @@ void Ball::move()
 
     moveCounter++;
 
-        // Incrementar la velocidad después de un número específico de movimientos
-        if (moveCounter >= 500) { // Por ejemplo, incrementar velocidad cada 100 movimientos
+
+        if (moveCounter >= 500) {
             increaseSpeed();
-            moveCounter = 0; // Reiniciar el contador
+            moveCounter = 0;
         }
 }
 

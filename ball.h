@@ -6,7 +6,7 @@
 
 class Ball {
 public:
-    Ball(int x, int y, int speed); // Constructor que toma posición inicial y velocidad
+    Ball(int x, int y, int speed);
 
     void draw(QPainter *painter);
     void move();

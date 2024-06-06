@@ -16,11 +16,11 @@ PowerUp::PowerUpType PowerUp::getType() const {
     return type;
 }
 void PowerUp::move() {
-    // Ejemplo de movimiento simple: mover el power-up hacia abajo
+
     rect.moveTop(rect.top() + 1);
 }
 
 bool PowerUp::isOffScreen() const {
-    // Comprueba si el power-up está fuera de los límites de la pantalla
+
     return rect.top() > 800;
 }

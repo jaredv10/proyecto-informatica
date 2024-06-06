@@ -2,7 +2,7 @@
 #include <QDebug>
 
 Player::Player(int x, int y, bool isAI)
-    : rect(x, y, 10, 100) // Ajustar el tamaño según sea necesario
+    : rect(x, y, 10, 100)
     , direction(None)
     , isAI(isAI)
     , speed(10)
@@ -11,7 +11,7 @@ Player::Player(int x, int y, bool isAI)
 
 void Player::draw(QPainter *painter)
 {
-    painter->setBrush(Qt::blue); // Cambiar color si es necesario
+    painter->setBrush(Qt::blue);
     painter->drawRect(rect);
 }
 
@@ -25,7 +25,7 @@ void Player::move()
 
     if (rect.top() < 0) {
         rect.moveTop(0);
-    } else if (rect.bottom() > 800) { // Suponiendo que el campo de juego tiene una altura de 800
+    } else if (rect.bottom() > 800) {
         rect.moveBottom(800);
     }
 }
@@ -39,7 +39,7 @@ void Player::moveAI(const QRect &ballRect)
         rect.moveTop(rect.top() + 5);
     }
 
-    // Limitar el movimiento dentro del área del juego
+
     if (rect.top() < 0) {
         rect.moveTop(0);
     } else if (rect.bottom() > 800) {

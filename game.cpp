@@ -12,21 +12,21 @@ Game::Game(int mode, QWidget *parent)
     , gameRunning(false)
     , score1(0)
     , score2(0)
-    , player1(new Player(50, 400)) // Ajusta las coordenadas iniciales según sea necesario
-    , player2(new Player(1150, 400, mode == 1)) // Ajusta las coordenadas iniciales según sea necesario y usa isAI para jugador 2 en modo un jugador
-    , ball(new Ball(600, 400, 5)) // Ajusta las coordenadas iniciales y velocidad según sea necesario
+    , player1(new Player(50, 400))
+    , player2(new Player(1150, 400, mode == 1))
+    , ball(new Ball(600, 400, 5))
     , timer(new QTimer(this))
     , obstacleTimer(new QTimer(this))
 {
     setFixedSize(1200, 800);
-    setFocusPolicy(Qt::StrongFocus); // Asegurar que el widget recibe eventos de teclado
+    setFocusPolicy(Qt::StrongFocus);
     connect(timer, &QTimer::timeout, this, &Game::updateGame);
     connect(obstacleTimer, &QTimer::timeout, this, &Game::moveObstacles);
 }
 
 void Game::addStaticObstacles()
 {
-    // Ejemplo de agregar obstáculos estáticos
+
     obstacles.append(new Obstacle(300, 200, 20, 100));
     obstacles.append(new Obstacle(700, 500, 20, 100));
     obstacles.append(new Obstacle(500, 300, 20, 100));
@@ -34,7 +34,7 @@ void Game::addStaticObstacles()
 
 void Game::addMovingObstacles()
 {
-    // Ejemplo de agregar obstáculos móviles
+
     obstacles.append(new Obstacle(400, 100, 20, 100));
     obstacles.append(new Obstacle(800, 400, 20, 100));
 }
@@ -43,8 +43,8 @@ void Game::moveObstacles()
 {
     for (auto obstacle : obstacles) {
         QRect rect = obstacle->getRect();
-        rect.moveTop(rect.top() + 5); // Mueve el obstáculo hacia abajo
-        if (rect.bottom() > height()) { // Si el obstáculo sale de la pantalla, reinícialo en la parte superior
+        rect.moveTop(rect.top() + 5);
+        if (rect.bottom() > height()) {
             rect.moveTop(0);
         }
         obstacle->setRect(rect);
@@ -59,9 +59,9 @@ void Game::startGame()
     score2 = 0;
     winner .clear();
     addStaticObstacles();
-    addMovingObstacles(); // Llamar al método para agregar obstáculos móviles
-    timer->start(16); // Aproximadamente 60 FPS
-    obstacleTimer->start(50); // Mover obstáculos cada 50 ms
+    addMovingObstacles();
+    timer->start(16);
+    obstacleTimer->start(50);
 }
 
 
@@ -83,7 +83,7 @@ void Game::paintEvent(QPaintEvent *event)
             powerUp->draw(&painter);
         }
 
-        // Dibuja los puntajes en la pantalla
+
         painter.setPen(QColor("#ff1f16"));
         QFont scoreFont("Comic Sans MS", 24, QFont::Bold);
         painter.setFont(scoreFont);
@@ -92,22 +92,22 @@ void Game::paintEvent(QPaintEvent *event)
     } else {
         QFont font("Kristen ITC", 40, QFont::Bold);
                 painter.setFont(font);
-                painter.setPen(QColor("#FFEB3B")); // Cambia el color del lápiz a amarillo
+                painter.setPen(QColor("#FFEB3B"));
 
-                // Configura el relleno alrededor del texto (padding)
+
                 QRectF textRect = rect().adjusted(20, 20, -20, -20);
 
-                // Configura la alineación del texto
+
                 Qt::Alignment alignment = Qt::AlignCenter;
 
-                // Dibuja un gradiente de color como fondo del texto "Game Over"
-                QLinearGradient gradient(textRect.topLeft(), textRect.bottomRight());
-                gradient.setColorAt(0, QColor(125, 31, 162)); // Púrpura oscuro
-                gradient.setColorAt(1, QColor(221, 44, 0)); // Rojo oscuro
-                painter.setBrush(gradient);
-                painter.drawRoundedRect(textRect, 10, 10); // Dibuja un rectángulo redondeado como fondo
 
-                // Dibuja el texto "Game Over" centrado en el rectángulo
+                QLinearGradient gradient(textRect.topLeft(), textRect.bottomRight());
+                gradient.setColorAt(0, QColor(125, 31, 162));
+                gradient.setColorAt(1, QColor(221, 44, 0));
+                painter.setBrush(gradient);
+                painter.drawRoundedRect(textRect, 10, 10);
+
+
                 painter.drawText(textRect, alignment | Qt::TextWordWrap, "GAME OVER \n");
                 painter.drawText(rect(), Qt::AlignCenter, QString("\n Winner: %1").arg(winner));
     }
@@ -159,7 +159,7 @@ void Game::keyReleaseEvent(QKeyEvent *event)
 void Game::updateGame() {
     player1->move();
     if (mode == 1) {
-        player2->moveAI(ball->getRect()); // Movimiento de la IA
+        player2->moveAI(ball->getRect());
     } else {
         player2->move();
     }
@@ -191,7 +191,7 @@ void Game::checkCollision()
 {
     if (ball->collidesWith(player1->getRect()) || ball->collidesWith(player2->getRect())) {
         ball->reverseXDirection();
-        //soundManager->playSound(SoundManager::Hit);
+
     }
 
     for (auto obstacle : obstacles) {
@@ -231,19 +231,19 @@ void Game::checkCollision()
 void Game::applyPowerUp(PowerUp::PowerUpType type, Player *player) {
     switch (type) {
         case PowerUp::IncreaseSpeed:
-            player->setSpeed(player->getSpeed() + 5); // Aumenta la velocidad de la raqueta
+            player->setSpeed(player->getSpeed() + 5);
             break;
         case PowerUp::DoublePaddle:
-            player->doubleSize(); // Duplica el tamaño de la raqueta
+            player->doubleSize();
             break;
     }
 
-    // Inicia un temporizador para restablecer los efectos del PowerUp después de un tiempo
+
     QTimer::singleShot(10000, [player, type]() {
         if (type == PowerUp::IncreaseSpeed) {
-            player->setSpeed(player->getSpeed() - 5); // Restablece la velocidad de la raqueta
+            player->setSpeed(player->getSpeed() - 5);
         } else if (type == PowerUp::DoublePaddle) {
-            player->resetSize(); // Restablece el tamaño de la raqueta
+            player->resetSize();
         }
     });
 }
@@ -258,9 +258,9 @@ void Game::generatePowerUp() {
 
 void Game::resetGame()
 {
-    // Reiniciar posiciones de los jugadores y la pelota
+
     delete ball;
-    ball = new Ball(600, 400, 5); // Restablecer la posición y velocidad de la pelota
+    ball = new Ball(600, 400, 5);
     player1->setDirection(Player::None);
     player2->setDirection(Player::None);
 }
@@ -269,5 +269,5 @@ void Game::gameOver()
 {
     gameRunning = false;
     timer->stop();
-    emit gameEnded(winner); // Emitir la señal al finalizar el juego
+    emit gameEnded(winner);
 }
